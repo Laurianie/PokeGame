@@ -1,3 +1,5 @@
+import org.json.simple.parser.ParseException;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -10,9 +12,20 @@ public class PokeGame implements ActionListener{
     private JPanel Panel1;
     private int WIDTH=1200;
     private int HEIGHT=1200;
+    public ReadJson readme;
+    public String hold;
 
 
     public PokeGame() {
+        readme= new ReadJson();
+        try {
+            readme.pull();
+            hold= readme.abilityName;
+            System.out.println(hold);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         prepareGUI();
     }
 
