@@ -1,3 +1,4 @@
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
@@ -17,31 +18,48 @@ public class PokeGame implements ActionListener{
 
 
     public PokeGame() {
-        readme= new ReadJson();
+//        readme = new ReadJson();
+//        try {
+//            readme.pull();
+//            hold= readme.abilityName;
+//            System.out.println(hold);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        prepareGUI();
+    }
+
+    public void POKEgame(){
+
+        readme = new ReadJson();
         try {
             readme.pull();
-            hold= readme.abilityName;
-            System.out.println(hold);
+            hold = readme.abilityName;
+            System.out.println("hold: "+hold);
+            ta.append(hold);
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        prepareGUI();
     }
 
     public static void main(String[] args) {
         PokeGame PokeGame = new PokeGame();
-        PokeGame.showEventDemo();
+        PokeGame.prepareGUI();
     }
 
     private void prepareGUI(){
         mainFrame = new JFrame("Poke Game");
         mainFrame.setSize(WIDTH, HEIGHT);
+        Panel1 = new JPanel();
 
         mainFrame.setLayout(new BorderLayout());
+        Panel1.setLayout(new GridLayout(1,1));
 
-        ta = new JTextArea();
-        ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
+
 
         label1 = new JLabel("LABEL 1", JLabel.CENTER);
         label2 = new JLabel("LABEL 1", JLabel.CENTER);
@@ -53,15 +71,12 @@ public class PokeGame implements ActionListener{
             }
         });
 
-        mainFrame.setVisible(true);
-
-    }
-
-    private void showEventDemo(){
         JButton button1 = new JButton ("PREVIOUS ");
         JButton button2 = new JButton ("NEXT ");
         JButton button3  = new JButton ("CARD INFORMATION: ");
-        JPanel panel1 = new JPanel();
+
+        ta = new JTextArea();
+        ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
 
 
         button1.setActionCommand("PREVIOUS");
@@ -71,13 +86,17 @@ public class PokeGame implements ActionListener{
 
         button1.addActionListener(new ButtonClickListener());
         button2.addActionListener(new ButtonClickListener());
+        button3.addActionListener(new ButtonClickListener());
+
 
 
         mainFrame.add(button1, BorderLayout.WEST);
         mainFrame.add(button2,BorderLayout.EAST );
         mainFrame.add(button3, BorderLayout.NORTH);
-        mainFrame.add(panel1,BorderLayout.CENTER);
+        Panel1.add(ta);
+        mainFrame.add(Panel1,BorderLayout.CENTER);
 
+        mainFrame.setVisible(true);
     }
 
     @Override
@@ -87,8 +106,12 @@ public class PokeGame implements ActionListener{
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
+            if (command.equals("CARD INFORMATION: ")){
+                POKEgame();
 
+            }
         }
     }
-}
+    }
+//}
 

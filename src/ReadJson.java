@@ -12,7 +12,7 @@ import java.net.URL;
 
 // Program for print data in JSON format.
     public class ReadJson {
-        public String abilityName;
+        public String abilityName = "";
     public static void main(String args[]) throws ParseException {
             // In java JSONObject is used to create JSON object
             // which is a subclass of java.util.HashMap.
@@ -85,7 +85,8 @@ import java.net.URL;
                 for (int i = 0; i < n; ++i) {
                     JSONObject test =(JSONObject) msg.get(i);
                     JSONObject test2 =(JSONObject) test.get("ability");
-                     abilityName = (String) test2.get("name");
+                     abilityName = abilityName+", "+(String) test2.get("name");
+//                     ta.append(abilityName);
                     System.out.println(abilityName);
 
                    // System.out.println(person.getInt("key"));
