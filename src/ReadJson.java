@@ -9,14 +9,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+
 
 // Program for print data in JSON format.
     public class ReadJson {
-        public String abilityName = "";
+        public int pokeNUM = 0;
+
+        public String abilityName = "abilities: ";
     public static void main(String args[]) throws ParseException {
             // In java JSONObject is used to create JSON object
             // which is a subclass of java.util.HashMap.
         ReadJson read= new ReadJson();
+
 
             ReadJson readMe = new ReadJson();
             JSONObject file = new JSONObject();
@@ -39,9 +44,18 @@ import java.net.URL;
         public  void pull() throws ParseException {
             String output = "abc";
             String totlaJson="";
+
+            ArrayList<String> characters = new ArrayList<String>();
+            characters.add("pikachu");
+            characters.add("bulbasaur");
+            characters.add("squirtle");
+            characters.add("charmander");
+
             try {
 
-                URL url = new URL("https://pokeapi.co/api/v2/pokemon/ditto");
+                System.out.println("POKEnum:"+ pokeNUM);
+
+                URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + characters.get(pokeNUM));
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
@@ -74,7 +88,6 @@ import java.net.URL;
             JSONParser parser = new JSONParser();
             //System.out.println(str);
             JSONObject jsonObject = (JSONObject) parser.parse(totlaJson);
-            System.out.println("HI" + jsonObject);
 
             try {
                 System.out.println(jsonObject.get("name"));
@@ -85,8 +98,7 @@ import java.net.URL;
                 for (int i = 0; i < n; ++i) {
                     JSONObject test =(JSONObject) msg.get(i);
                     JSONObject test2 =(JSONObject) test.get("ability");
-                     abilityName = abilityName+", "+(String) test2.get("name");
-//                     ta.append(abilityName);
+                     abilityName = "\n"+ abilityName+""+(String) test2.get("name")+", ";
                     System.out.println(abilityName);
 
                    // System.out.println(person.getInt("key"));

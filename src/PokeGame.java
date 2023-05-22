@@ -28,11 +28,12 @@ public class PokeGame implements ActionListener{
 //        }
 //
 //        prepareGUI();
+        readme = new ReadJson();
     }
 
     public void POKEgame(){
 
-        readme = new ReadJson();
+
         try {
             readme.pull();
             hold = readme.abilityName;
@@ -108,7 +109,13 @@ public class PokeGame implements ActionListener{
             String command = e.getActionCommand();
             if (command.equals("CARD INFORMATION: ")){
                 POKEgame();
-
+                System.out.println("\n");
+            }
+            if (command.equals ("NEXT") && readme.pokeNUM <= 3){
+                readme.pokeNUM ++;
+            }
+            else{
+                readme.pokeNUM = 0;
             }
         }
     }
